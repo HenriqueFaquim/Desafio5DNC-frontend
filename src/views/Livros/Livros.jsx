@@ -11,7 +11,7 @@ const Livros = () => {
 
   async function getLivros(){
     const {data} = await LivrosService.getLivros();
-    setLivros(data)
+    setLivros(data.message)
   }
 
   async function deleteLivro(livroId){
@@ -19,11 +19,11 @@ const Livros = () => {
     if(valida){
       await LivrosService.deleteLivro(livroId)
       .then(({data}) => {
-        alert(data.mensagem)
+        alert(data.statusMessage)
         getLivros()
       })
       .catch(({response:{data,status}})=>{
-        alert(`${status} - ${data.mensagem}`)      
+        alert(`${status} - ${data.statusMessage}`)      
       });
     }
   }
@@ -41,7 +41,7 @@ const Livros = () => {
         <ul>
         {livros.map((livro) =>(
           <li key={livro.id}>
-            {livro.titulo} 
+            {livro.title} 
             <span>{livro.editora}</span>
             <div className='botoes'>
               <div>
