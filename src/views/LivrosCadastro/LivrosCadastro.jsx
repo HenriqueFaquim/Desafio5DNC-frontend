@@ -19,11 +19,13 @@ const LivrosCadastro = () => {
       if(livro.id!=undefined && livro.id!='' && livro.title!=undefined && livro.title!='' && livro.pages!=undefined && livro.pages!='' && livro.ISBN !=undefined && livro.ISBN !='' && livro.editora !=undefined && livro.editora !=''){
       await LivrosService.createLivro(body)
       .then((response)=>{
-        alert(response.data)
+        alert(response.data.statusMessage)
         document.getElementById('formulario').reset
       })
       .catch(({response:{data,status}})=>{
-        alert(`${status} - ${data}`)      
+        console.log(data)
+        alert(`ERRO(${status}) - ${data.statusMessage}`)
+
       });
     }
 
@@ -31,11 +33,11 @@ const LivrosCadastro = () => {
 
   return (
   <>
-    <Header/>    
+    <Header/>
     <SubmenuLivros/>
     <div className='livrosCadastro'>
         <h1>Cadastro de Livros</h1>
-        <div>          
+        <div>
           <form id="formulario">
           <div className='form-group'>
             <label>Id</label>
@@ -58,10 +60,10 @@ const LivrosCadastro = () => {
             <input type="text" id='editora' required onChange={(event)=>{ setLivro({...livro, editora: event.target.value})}}></input>
           </div> 
           <div className='form-group'>
-            <button onClick={()=>{
+            <button type='button' onClick={()=>{
               createLivro()
-            }}>Cadastrar Livro</button>  
-          </div>         
+            }}>Cadastrar Livro</button>
+          </div>
           </form>
         </div>
     </div>

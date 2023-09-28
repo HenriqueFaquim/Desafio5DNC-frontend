@@ -5,7 +5,7 @@ import SubmenuLivros from '../../components/SubmenuLivros/SubmenuLivros'
 import { useParams } from 'react-router-dom'
 import { LivrosService } from '../../api/LivrosService'
 
-const LivrosEdicao = () => {  
+const LivrosEdicao = () => {
   let {livroId} = useParams();
 
   const [livro, setLivro] = useState([])
@@ -24,7 +24,6 @@ const LivrosEdicao = () => {
         editora: livro.editora
       }
     if(livro.id!=undefined && livro.id!='' && livro.title!=undefined && livro.title!='' && livro.pages!=undefined && livro.pages!='' && livro.ISBN !=undefined && livro.ISBN !='' && livro.editora !=undefined && livro.editora !=''){
-      alert("Livro Foi editado")
       await LivrosService.updateLivro(Number(livro.id),body)
       .then(({data})=>{
         alert(data.statusMessage)
@@ -34,7 +33,7 @@ const LivrosEdicao = () => {
         alert(`${status} - ${data}`)
         console.log(data.statusMessage)
       });
-    }  
+    }
 
   }
 
@@ -44,7 +43,7 @@ const LivrosEdicao = () => {
 
   return (
   <>
-    <Header/>    
+    <Header/>
     <SubmenuLivros/>
     <div className='livrosCadastro'>
         <h1>Edição de Livros</h1>
@@ -69,17 +68,16 @@ const LivrosEdicao = () => {
             <div className='form-group'>
               <label>Editora</label>
               <input type="text"  required onChange={(event)=>{ setLivro({...livro, editora: event.target.value})}} value={livro.editora || ''}></input>
-            </div> 
+            </div>
             <div className='form-group'>
-              <button onClick={()=>{
+              <button type='button' onClick={()=>{
               editLivro()
-            }}>Atualizar Livro</button>  
+            }}>Atualizar Livro</button>
             </div>
           </form>
           </div>
     </div>
   </>)
-  
 }
 
 export default LivrosEdicao
